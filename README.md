@@ -23,13 +23,13 @@ The Animal model will now have a tags path that can hold an array of tags.
 
 Tags are their own objects, saved in their own collection in your database (`jfstags` by default). They even have a Mongoose model registered to them (`JFSTag` by default). All of your models that use this plugin will draw from the same pool of tags. Tags are auto-populated on query-time and you can query tags just like any subdoc:
  
- ```
- Animal.find({ "tags.name": ['bright', 'big', 'bulbous']});
- ```
+```
+Animal.find({ "tags.name": ['bright', 'big', 'bulbous']});
+```
  
- Tags are indexed automatically at their name path and should be super fast.
+Tags are indexed automatically at their name path and should be super fast.
  
- ## Running tests
- ```
- npm test
- ```
+## Running testsFix
+```
+npm test
+```
