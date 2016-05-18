@@ -1,0 +1,35 @@
+{
+  "name": "mongoose-tag-everything",
+  "version": "1.0.0",
+  "description": "A Mongoose plugin that adds a tags path to any schema",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha tests/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joeyfromspace/mongoose-tag-everything.git"
+  },
+  "keywords": [
+    "mongoose",
+    "plugin",
+    "mongodb",
+    "tags",
+    "tag"
+  ],
+  "author": "Joey Lappin <joey@joeyfromspace.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/joeyfromspace/mongoose-tag-everything/issues"
+  },
+  "homepage": "https://github.com/joeyfromspace/mongoose-tag-everything#readme",
+  "dependencies": {
+    "async": "2.0.0-rc.5",
+    "lodash": "4.12.0",
+    "mongoose": "4.4.17"
+  },
+  "devDependencies": {
+    "chai": "3.5.0",
+    "mocha": "2.4.5"
+  }
+}

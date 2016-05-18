@@ -1,0 +1,14 @@
+# Files to ignore
+*.log
+.DS_STORE
+.env
+
+# Directories to ignore
+logs
+.idea
+node_modules
+
+# Runtime data
+pids
+*.pid
+*.seed
