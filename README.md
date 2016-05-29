@@ -29,7 +29,7 @@ Animal.find({ "tags.name": ['bright', 'big', 'bulbous']});
  
 Tags are indexed automatically at their name path and should be super fast.
  
-## Running testsFix
+## Running tests
 ```
 npm test
 ```
