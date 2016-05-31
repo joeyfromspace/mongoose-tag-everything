@@ -14,6 +14,11 @@ describe('mongoose-tag-everything options tests', function() {
         connection.connection.db.dropDatabase(done);
         called = true;
       }
+      connection.plugin(tagEverything, {
+        collection: 'cooltags',
+        ModelName: 'Tagegeddon',
+        path: 'clips'
+      });
     });
   });
 
@@ -26,13 +31,10 @@ describe('mongoose-tag-everything options tests', function() {
     var schema = new mongoose.Schema({
       name: String
     });
-    schema.plugin(tagEverything, {
-      collection: 'cooltags'
-    });
     mongoose.model('TestAgain', schema);
 
     Model = mongoose.model('TestAgain');
-    Model.create({ name: 'Vindaloo', tags: ['hot', 'acidic'] }, function(err) {
+    Model.create({ name: 'Vindaloo', clips: ['hot', 'acidic'] }, function(err) {
       mongoose.connection.db.listCollections().toArray(function(err, names) {
         var tagsCollection = _.find(names, { name: 'cooltags' }).name;
         assert.equal(tagsCollection, 'cooltags');
@@ -46,16 +48,14 @@ describe('mongoose-tag-everything options tests', function() {
     var schema = new mongoose.Schema({
       name: String
     });
-    schema.plugin(tagEverything, {
-      ModelName: 'Tagegeddon'
-    });
     mongoose.model('AnotherTest', schema);
 
     Model = mongoose.model('AnotherTest');
-    Model.create({ name: 'Pizza', tags: ['delicious', 'fattening',  'diabetus']}, function() {
+    Model.create({ name: 'Pizza', clips: ['delicious', 'fattening',  'diabetus']}, function() {
       var Tag = mongoose.model('Tagegeddon');
       Tag.find({}).exec(function(err, tags) {
-        assert.equal(tags.length, 3);
+        // Should equal five including the tags from the previous test
+        assert.equal(tags.length, 5);
         done();
       });
     });
@@ -65,9 +65,6 @@ describe('mongoose-tag-everything options tests', function() {
     var Model;
     var schema = new mongoose.Schema({
       name: String
-    });
-    schema.plugin(tagEverything, {
-      path: 'clips'
     });
     mongoose.model('RadTest', schema);
 

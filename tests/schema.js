@@ -14,6 +14,7 @@ describe('mongoose-tag-everything', function() {
       }
 
       connection.connection.db.dropDatabase(done);
+      connection.plugin(tagEverything);
     });
   });
 
