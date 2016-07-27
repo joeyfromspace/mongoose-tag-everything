@@ -6,6 +6,9 @@ Mongoose plugin that adds a tags path to your models.
 npm install mongoose-tag-everything
 ```
 
+## Breaking Changes in 2.0.0
+As of 2.0.0, tags are stored as strings in your models, and the default Tag model stores model names tags appear in under the `appearsIn` path. So instead of querying for `tag.name` you can just query for `tag`. The default model name and path has also been changes to `Tag` and `tags` respectively.
+
 ## Using in your app
 ```
 var mongoose = require('mongoose');
@@ -21,10 +24,10 @@ mongoose.model('Animal', animal);
 
 The Animal model will now have a tags path that can hold an array of tags.
 
-Tags are their own objects, saved in their own collection in your database (`jfstags` by default). They even have a Mongoose model registered to them (`JFSTag` by default). All of your models that use this plugin will draw from the same pool of tags. Tags are auto-populated on query-time and you can query tags just like any subdoc:
+Tags are their own objects, saved in their own collection in your database (`tags` by default). They even have a Mongoose model registered to them (`Tag` by default). All of your models that use this plugin will draw from the same pool of tags. Tags are auto-populated on query-time and you can query tags just like any subdoc:
  
 ```
-Animal.find({ "tags.name": ['bright', 'big', 'bulbous']});
+Animal.find({ "tags": ['bright', 'big', 'bulbous']});
 ```
  
 Tags are indexed automatically at their name path and should be super fast.

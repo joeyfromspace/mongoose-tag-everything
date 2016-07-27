@@ -3,11 +3,12 @@ var mongoose = require('mongoose');
 var tagEverything = require('../index');
 var _ = require('lodash');
 
-var testDb = 'mongodb://127.0.0.1:27017/test';
+var testDb = 'mongodb://127.0.0.1:27017/tag-everything-test';
+var connection;
 
 describe('mongoose-tag-everything options tests', function() {
   before(function(done) {
-    var connection = mongoose.connect(testDb);
+    connection = mongoose.connect(testDb);
     var called = false;
     connection.connection.on('connected', function() {
       if (called === false) {
@@ -31,9 +32,9 @@ describe('mongoose-tag-everything options tests', function() {
     var schema = new mongoose.Schema({
       name: String
     });
-    mongoose.model('TestAgain', schema);
+    connection.model('TestAgain', schema);
 
-    Model = mongoose.model('TestAgain');
+    Model = connection.model('TestAgain');
     Model.create({ name: 'Vindaloo', clips: ['hot', 'acidic'] }, function(err) {
       mongoose.connection.db.listCollections().toArray(function(err, names) {
         var tagsCollection = _.find(names, { name: 'cooltags' }).name;
@@ -48,12 +49,11 @@ describe('mongoose-tag-everything options tests', function() {
     var schema = new mongoose.Schema({
       name: String
     });
-    mongoose.model('AnotherTest', schema);
+    connection.model('AnotherTest', schema);
 
-    Model = mongoose.model('AnotherTest');
+    Model = connection.model('AnotherTest');
     Model.create({ name: 'Pizza', clips: ['delicious', 'fattening',  'diabetus']}, function() {
-      var Tag = mongoose.model('Tagegeddon');
-      Tag.find({}).exec(function(err, tags) {
+      connection.model('Tagegeddon').find({}, function(err, tags) {
         // Should equal five including the tags from the previous test
         assert.equal(tags.length, 5);
         done();
@@ -66,11 +66,11 @@ describe('mongoose-tag-everything options tests', function() {
     var schema = new mongoose.Schema({
       name: String
     });
-    mongoose.model('RadTest', schema);
+    connection.model('RadTest', schema);
 
-    Model = mongoose.model('RadTest');
+    Model = connection.model('RadTest');
     Model.create({ name: 'Donut', clips: ['sugary', 'powdery']}, function() {
-      Model.find({ 'clips.name': 'sugary' }).exec(function(err, docs) {
+      Model.find({ 'clips': 'sugary' }).exec(function(err, docs) {
         assert.equal(docs.length, 1);
         done();
       });
