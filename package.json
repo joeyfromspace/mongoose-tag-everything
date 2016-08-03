@@ -1,6 +1,6 @@
 {
   "name": "mongoose-tag-everything",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "A Mongoose plugin that adds a tags path to any schema",
   "main": "index.js",
   "scripts": {
