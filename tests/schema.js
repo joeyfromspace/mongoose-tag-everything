@@ -40,7 +40,8 @@ describe('mongoose-tag-everything', function() {
     schema.plugin(tagEverything);
     Model = connection.model('Test', schema);
     Model.create({ name: 'Lorem Ipsum', tags: ['cool', 'rad'] }, function(err, doc) {
-      assert.deepEqual(doc.tags, ['cool', 'rad']);
+      assert.equal(doc.tags[0], 'cool');
+      assert.equal(doc.tags[1], 'rad');
       done();
     });
   });
